@@ -30,7 +30,7 @@ do
     done
 
     if [ "${#files[@]}" -eq 0 ]; then
-        echo "Quarantine is empty"
+        echo "No malicious files to review"
         exit 0
     fi
 
@@ -72,7 +72,7 @@ do
             if [ -e "$monitored_dir/$filename" ]; then
                 echo "A file with this name already exists in the monitored directory"
             elif mv -- "$selected_file" "$monitored_dir/"; then
-                echo "$filename restored successfully"
+                echo "Restored $filename to $monitored_dir"
             else
                 echo "Failed to restore $filename"
             fi
@@ -82,7 +82,7 @@ do
 
             if [ "$confirm" = "y" ] || [ "$confirm" = "Y" ]; then
                 if rm -- "$selected_file"; then
-                    echo "$filename deleted permanently"
+                    echo "$filename permanently deleted"
                 else
                     echo "Failed to delete $filename"
                 fi
